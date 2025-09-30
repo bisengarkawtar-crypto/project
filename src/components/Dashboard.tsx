@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { useTasks } from '../hooks/useTasks';
+import { useTasks, getCategoryTheme } from '../hooks/useTasks';
 import { useSharedLists } from '../hooks/useSharedLists';
 import { TaskItem } from './TaskItem';
 import { TaskModal } from './TaskModal';
@@ -54,6 +54,17 @@ export function Dashboard() {
     });
   }, [tasks, showCompleted, selectedCategory, selectedPriority]);
 
+  // Get current theme based on selected category
+  const currentTheme = useMemo(() => {
+    if (selectedCategory) {
+      const category = categories.find(cat => cat.id === selectedCategory);
+      if (category) {
+        return getCategoryTheme(category.name);
+      }
+    }
+    return getCategoryTheme('Général');
+  }, [selectedCategory, categories]);
+
   const taskStats = useMemo(() => {
     const total = tasks.length;
     const completed = tasks.filter((t) => t.is_completed).length;
@@ -76,9 +87,9 @@ export function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className={`min-h-screen bg-gradient-to-br ${currentTheme.background}`}>
       <div className="max-w-7xl mx-auto p-4 md:p-6">
-        <header className="bg-white rounded-2xl shadow-sm p-6 mb-6">
+        <header className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm p-6 mb-6 border border-white/20`}>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="text-3xl font-bold text-slate-800 mb-1">Ma To-Do Liste</h1>
@@ -122,15 +133,15 @@ export function Dashboard() {
           </div>
 
           <div className="grid grid-cols-3 gap-4 mt-6">
-            <div className="bg-blue-50 rounded-xl p-4">
-              <div className="text-2xl font-bold text-blue-600">{taskStats.total}</div>
-              <div className="text-sm text-blue-700">Total</div>
+            <div className={`rounded-xl p-4 border-2`} style={{ backgroundColor: currentTheme.secondary, borderColor: currentTheme.primary }}>
+              <div className="text-2xl font-bold" style={{ color: currentTheme.accent }}>{taskStats.total}</div>
+              <div className="text-sm" style={{ color: currentTheme.accent }}>Total</div>
             </div>
-            <div className="bg-green-50 rounded-xl p-4">
+            <div className="bg-green-50 rounded-xl p-4 border-2 border-green-200">
               <div className="text-2xl font-bold text-green-600">{taskStats.completed}</div>
               <div className="text-sm text-green-700">Terminées</div>
             </div>
-            <div className="bg-red-50 rounded-xl p-4">
+            <div className="bg-red-50 rounded-xl p-4 border-2 border-red-200">
               <div className="text-2xl font-bold text-red-600">{taskStats.urgent}</div>
               <div className="text-sm text-red-700">Urgentes</div>
             </div>
@@ -152,7 +163,7 @@ export function Dashboard() {
 
         <div className="grid md:grid-cols-4 gap-6">
           <aside className="md:col-span-1 space-y-4">
-            <div className="bg-white rounded-2xl shadow-sm p-4">
+            <div className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm p-4 border border-white/20`}>
               <h2 className="font-semibold text-slate-800 mb-3 flex items-center gap-2">
                 <Home className="w-5 h-5" />
                 Mes Listes
@@ -204,7 +215,7 @@ export function Dashboard() {
               )}
             </div>
 
-            <div className="bg-white rounded-2xl shadow-sm p-4">
+            <div className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm p-4 border border-white/20`}>
               <h2 className="font-semibold text-slate-800 mb-3 flex items-center gap-2">
                 <Filter className="w-5 h-5" />
                 Filtres
@@ -265,7 +276,7 @@ export function Dashboard() {
           </aside>
 
           <main className="md:col-span-3">
-            <div className="bg-white rounded-2xl shadow-sm p-6">
+            <div className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm p-6 border border-white/20`}>
               <div className="flex items-center justify-between mb-6">
                 <div>
                   <h2 className="text-2xl font-bold text-slate-800">
@@ -280,7 +291,8 @@ export function Dashboard() {
 
                 <button
                   onClick={() => setShowTaskModal(true)}
-                  className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors inline-flex items-center gap-2"
+                  className="px-4 py-2 text-white rounded-lg font-medium transition-colors inline-flex items-center gap-2 hover:opacity-90"
+                  style={{ backgroundColor: currentTheme.primary }}
                 >
                   <Plus className="w-5 h-5" />
                   Nouvelle tâche

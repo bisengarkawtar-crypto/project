@@ -1,8 +1,9 @@
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { Auth } from './components/Auth';
 import { Dashboard } from './components/Dashboard';
 
 function AppContent() {
-  const { loading } = useAuth();
+  const { user, loading } = useAuth();
 
   if (loading) {
     return (
@@ -15,7 +16,7 @@ function AppContent() {
     );
   }
 
-  return <Dashboard />;
+  return user ? <Dashboard /> : <Auth />;
 }
 
 function App() {

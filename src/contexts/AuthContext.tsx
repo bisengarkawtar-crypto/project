@@ -16,19 +16,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let u = synthStore.getCurrentUser();
-    if (!u) {
-      try {
-        // Auto-provision a local guest user so the app works without accounts
-        const guest = synthStore.signUp('guest@local', 'guest').user;
-        u = guest;
-      } catch {
-        // If guest already exists but wasn't current, sign in
-        try {
-          u = synthStore.signIn('guest@local', 'guest').user;
-        } catch {}
-      }
-    }
+    const u = synthStore.getCurrentUser();
     setUser(u);
     setLoading(false);
   }, []);

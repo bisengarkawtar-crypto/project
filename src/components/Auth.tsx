@@ -27,10 +27,28 @@ export function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-amber-50 flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Motifs décoratifs cute */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 left-10 text-6xl opacity-20 animate-pulse">✨</div>
+        <div className="absolute top-32 right-20 text-5xl opacity-20 animate-bounce">🌸</div>
+        <div className="absolute bottom-20 left-32 text-7xl opacity-20">🌈</div>
+        <div className="absolute bottom-40 right-10 text-6xl opacity-20 animate-pulse">💫</div>
+        <div className="absolute top-1/2 left-1/4 text-4xl opacity-20">🎨</div>
+        <div className="absolute top-1/3 right-1/3 text-5xl opacity-20 animate-bounce">☀️</div>
+        <div className="absolute bottom-1/4 left-1/2 text-4xl opacity-20">🎯</div>
+        <div className="absolute top-1/4 left-1/3 text-6xl opacity-10">🦋</div>
+        <div className="absolute bottom-1/3 right-1/4 text-5xl opacity-10 animate-pulse">🌟</div>
+
+        {/* Formes géométriques colorées */}
+        <div className="absolute top-20 right-1/4 w-32 h-32 bg-gradient-to-br from-pink-200 to-rose-300 rounded-full opacity-20 blur-2xl"></div>
+        <div className="absolute bottom-32 left-1/4 w-40 h-40 bg-gradient-to-br from-amber-200 to-yellow-300 rounded-full opacity-20 blur-2xl"></div>
+        <div className="absolute top-1/2 right-1/3 w-24 h-24 bg-gradient-to-br from-blue-200 to-cyan-300 rounded-full opacity-20 blur-xl"></div>
+      </div>
+
+      <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-8 w-full max-w-md relative z-10 border border-white/50">
         <div className="flex items-center justify-center mb-6">
-          <div className="bg-blue-500 p-3 rounded-xl">
+          <div className="bg-gradient-to-br from-pink-400 via-rose-400 to-amber-400 p-4 rounded-2xl shadow-lg">
             {isSignUp ? (
               <UserPlus className="w-8 h-8 text-white" />
             ) : (
@@ -39,13 +57,13 @@ export function Auth() {
           </div>
         </div>
 
-        <h1 className="text-3xl font-bold text-center mb-2 text-slate-800">
-          {isSignUp ? 'Créer un compte' : 'Se connecter'}
+        <h1 className="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-pink-600 via-rose-600 to-amber-600 bg-clip-text text-transparent">
+          {isSignUp ? '✨ Créer un compte' : '🌟 Se connecter'}
         </h1>
-        <p className="text-center text-slate-600 mb-8">
+        <p className="text-center text-slate-600 mb-8 text-lg">
           {isSignUp
-            ? 'Commencez à organiser vos tâches'
-            : 'Bienvenue sur votre liste de tâches'}
+            ? 'Commencez à organiser vos tâches avec style'
+            : 'Bienvenue dans votre espace coloré'}
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -88,9 +106,9 @@ export function Auth() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 hover:from-pink-600 hover:via-rose-600 hover:to-amber-600 text-white font-medium py-3 px-4 rounded-xl transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
           >
-            {loading ? 'Chargement...' : isSignUp ? 'S\'inscrire' : 'Se connecter'}
+            {loading ? 'Chargement...' : isSignUp ? '✨ S\'inscrire' : '🌟 Se connecter'}
           </button>
         </form>
 
@@ -100,7 +118,7 @@ export function Auth() {
               setIsSignUp(!isSignUp);
               setError('');
             }}
-            className="text-blue-600 hover:text-blue-700 text-sm font-medium transition-colors"
+            className="text-rose-600 hover:text-rose-700 text-sm font-medium transition-colors"
           >
             {isSignUp
               ? 'Vous avez déjà un compte ? Se connecter'

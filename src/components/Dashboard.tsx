@@ -87,17 +87,29 @@ export function Dashboard() {
   };
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${currentTheme.background}`}>
-      <div className="max-w-7xl mx-auto p-4 md:p-6">
-        <header className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm p-6 mb-6 border border-white/20`}>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div className={`min-h-screen bg-gradient-to-br ${currentTheme.background} relative`}>
+      {/* Image de fond pour la catégorie */}
+      {currentTheme.imageUrl && (
+        <div
+          className="fixed inset-0 opacity-5 bg-cover bg-center pointer-events-none"
+          style={{ backgroundImage: `url(${currentTheme.imageUrl})` }}
+        />
+      )}
+      <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6 lg:p-8">
+        <header className={`bg-white/90 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-5 md:p-6 mb-4 sm:mb-5 md:mb-6 border-2 border-white/40 relative overflow-hidden`}>
+          <div className="absolute top-0 right-0 text-8xl opacity-5">{currentTheme.emoji}</div>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-slate-800 mb-1">Ma To-Do Liste</h1>
-              <p className="text-slate-600">{user?.email}</p>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1">
+                <span className="bg-gradient-to-r from-pink-600 via-rose-600 to-amber-600 bg-clip-text text-transparent">
+                  Ma To-Do Liste {currentTheme.emoji}
+                </span>
+              </h1>
+              <p className="text-slate-600 text-xs sm:text-sm truncate max-w-full">{user?.email}</p>
             </div>
 
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 bg-slate-100 rounded-lg px-3 py-2">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-1.5 sm:gap-2 bg-slate-100 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm">
                 <Bell className={`w-4 h-4 ${reminderEnabled ? 'text-blue-600' : 'text-slate-500'}`} />
                 <label className="flex items-center gap-2 text-sm text-slate-700">
                   <input
@@ -132,23 +144,23 @@ export function Dashboard() {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 mt-6">
-            <div className={`rounded-xl p-4 border-2`} style={{ backgroundColor: currentTheme.secondary, borderColor: currentTheme.primary }}>
-              <div className="text-2xl font-bold" style={{ color: currentTheme.accent }}>{taskStats.total}</div>
-              <div className="text-sm" style={{ color: currentTheme.accent }}>Total</div>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 mt-4 sm:mt-5 md:mt-6">
+            <div className={`rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 border-2 shadow-md transition-transform hover:scale-105`} style={{ backgroundColor: currentTheme.secondary, borderColor: currentTheme.primary }}>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold" style={{ color: currentTheme.accent }}>{taskStats.total}</div>
+              <div className="text-[10px] sm:text-xs font-medium" style={{ color: currentTheme.accent }}>Total</div>
             </div>
-            <div className="bg-green-50 rounded-xl p-4 border-2 border-green-200">
-              <div className="text-2xl font-bold text-green-600">{taskStats.completed}</div>
-              <div className="text-sm text-green-700">Terminées</div>
+            <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 border-2 border-green-300 shadow-md transition-transform hover:scale-105">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-green-700">{taskStats.completed}</div>
+              <div className="text-[10px] sm:text-xs font-medium text-green-800">Terminées</div>
             </div>
-            <div className="bg-red-50 rounded-xl p-4 border-2 border-red-200">
-              <div className="text-2xl font-bold text-red-600">{taskStats.urgent}</div>
-              <div className="text-sm text-red-700">Urgentes</div>
+            <div className="bg-gradient-to-br from-red-50 to-rose-100 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 border-2 border-red-300 shadow-md transition-transform hover:scale-105">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-red-700">{taskStats.urgent}</div>
+              <div className="text-[10px] sm:text-xs font-medium text-red-800">Urgentes</div>
             </div>
           </div>
         </header>
         {showReminderBanner && (
-          <div className="mb-4 p-3 rounded-xl bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-100 text-amber-800 flex items-start justify-between">
+          <div className="mb-3 sm:mb-4 p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-100 text-amber-800 flex items-start justify-between">
             <div className="pr-4 text-sm">
               N'oubliez pas vos tâches et habitudes aujourd'hui!
             </div>
@@ -161,11 +173,11 @@ export function Dashboard() {
           </div>
         )}
 
-        <div className="grid md:grid-cols-4 gap-6">
-          <aside className="md:col-span-1 space-y-4">
-            <div className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm p-4 border border-white/20`}>
-              <h2 className="font-semibold text-slate-800 mb-3 flex items-center gap-2">
-                <Home className="w-5 h-5" />
+        <div className="grid md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+          <aside className="md:col-span-1 space-y-3 sm:space-y-4">
+            <div className={`bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-5 border-2 border-white/40`}>
+              <h2 className="font-bold text-slate-800 mb-3 sm:mb-4 flex items-center gap-2 text-base sm:text-lg">
+                <Home className="w-4 sm:w-5 h-4 sm:h-5" />
                 Mes Listes
               </h2>
 
@@ -215,9 +227,9 @@ export function Dashboard() {
               )}
             </div>
 
-            <div className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm p-4 border border-white/20`}>
-              <h2 className="font-semibold text-slate-800 mb-3 flex items-center gap-2">
-                <Filter className="w-5 h-5" />
+            <div className={`bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-5 border-2 border-white/40`}>
+              <h2 className="font-bold text-slate-800 mb-3 sm:mb-4 flex items-center gap-2 text-base sm:text-lg">
+                <Filter className="w-4 sm:w-5 h-4 sm:h-5" />
                 Filtres
               </h2>
 
@@ -276,10 +288,16 @@ export function Dashboard() {
           </aside>
 
           <main className="md:col-span-3">
-            <div className={`bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm p-6 border border-white/20`}>
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h2 className="text-2xl font-bold text-slate-800">
+            <div className={`bg-white/90 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-5 md:p-6 border-2 border-white/40 relative overflow-hidden`}>
+              {currentTheme.imageUrl && (
+                <div
+                  className="absolute inset-0 opacity-[0.03] bg-cover bg-center pointer-events-none"
+                  style={{ backgroundImage: `url(${currentTheme.imageUrl})` }}
+                />
+              )}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-5 md:mb-6 relative z-10">
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent truncate">
                     {currentList ? currentList.name : 'Mes Tâches'}
                   </h2>
                   {currentList && (
@@ -291,11 +309,12 @@ export function Dashboard() {
 
                 <button
                   onClick={() => setShowTaskModal(true)}
-                  className="px-4 py-2 text-white rounded-lg font-medium transition-colors inline-flex items-center gap-2 hover:opacity-90"
+                  className="px-3 sm:px-4 py-2 sm:py-2.5 text-white rounded-lg font-medium transition-colors inline-flex items-center gap-1.5 sm:gap-2 hover:opacity-90 text-sm sm:text-base whitespace-nowrap"
                   style={{ backgroundColor: currentTheme.primary }}
                 >
-                  <Plus className="w-5 h-5" />
-                  Nouvelle tâche
+                  <Plus className="w-4 sm:w-5 h-4 sm:h-5" />
+                  <span className="hidden xs:inline">Nouvelle tâche</span>
+                  <span className="xs:hidden">Ajouter</span>
                 </button>
               </div>
 

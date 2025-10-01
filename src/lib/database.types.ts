@@ -85,6 +85,7 @@ export interface Database {
           shared_list_id: string | null
           completed_by: string | null
           completed_at: string | null
+          sticker: string
           created_at: string
           updated_at: string
         }
@@ -100,6 +101,7 @@ export interface Database {
           shared_list_id?: string | null
           completed_by?: string | null
           completed_at?: string | null
+          sticker?: string
           created_at?: string
           updated_at?: string
         }
@@ -115,6 +117,7 @@ export interface Database {
           shared_list_id?: string | null
           completed_by?: string | null
           completed_at?: string | null
+          sticker?: string
           created_at?: string
           updated_at?: string
         }

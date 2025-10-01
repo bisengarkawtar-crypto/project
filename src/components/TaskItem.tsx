@@ -36,26 +36,29 @@ export function TaskItem({ task, categories, onUpdate, onDelete }: TaskItemProps
   return (
     <>
       <div
-        className={`group bg-white border-2 rounded-xl p-4 transition-all hover:shadow-md ${
+        className={`group bg-white border-2 rounded-lg sm:rounded-xl p-3 sm:p-4 transition-all hover:shadow-md ${
           task.is_completed ? 'opacity-60 border-slate-200' : 'border-slate-200'
         }`}
       >
         <div className="flex items-start gap-3">
-          <button
-            onClick={handleToggle}
-            className={`flex-shrink-0 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${
-              task.is_completed
-                ? 'bg-green-500 border-green-500'
-                : 'border-slate-300 hover:border-green-500'
-            }`}
-          >
-            {task.is_completed && <Check className="w-4 h-4 text-white" />}
-          </button>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="text-2xl sm:text-3xl flex-shrink-0">{task.sticker || '📝'}</span>
+            <button
+              onClick={handleToggle}
+              className={`flex-shrink-0 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${
+                task.is_completed
+                  ? 'bg-green-500 border-green-500'
+                  : 'border-slate-300 hover:border-green-500'
+              }`}
+            >
+              {task.is_completed && <Check className="w-4 h-4 text-white" />}
+            </button>
+          </div>
 
           <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-2 mb-2">
+            <div className="flex items-start justify-between gap-2 mb-1.5 sm:mb-2">
               <h3
-                className={`font-medium text-slate-800 ${
+                className={`font-medium text-sm sm:text-base text-slate-800 ${
                   task.is_completed ? 'line-through text-slate-500' : ''
                 }`}
               >
@@ -81,10 +84,10 @@ export function TaskItem({ task, categories, onUpdate, onDelete }: TaskItemProps
             </div>
 
             {task.note && (
-              <p className="text-sm text-slate-600 mb-3 line-clamp-2">{task.note}</p>
+              <p className="text-xs sm:text-sm text-slate-600 mb-2 sm:mb-3 line-clamp-2">{task.note}</p>
             )}
 
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
               <span
                 className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium border ${
                   priorityStyles[task.priority]

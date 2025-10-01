@@ -14,6 +14,7 @@ export interface Task {
   shared_list_id: string | null;
   completed_by: string | null;
   completed_at: string | null;
+  sticker: string;
   created_at: string;
   updated_at: string;
 }
@@ -43,86 +44,92 @@ export interface CategoryTheme {
   background: string;
   text: string;
   gradient: string;
+  imageUrl?: string;
 }
 
 export function getCategoryTheme(categoryName: string): CategoryTheme {
   const name = categoryName.toLowerCase();
-  
+
   if (name.includes('travail')) {
     return {
       name: 'Travail',
       emoji: '💼',
-      primary: '#3B82F6', // blue-500
-      secondary: '#DBEAFE', // blue-100
-      accent: '#1E40AF', // blue-800
-      background: 'from-blue-50 to-indigo-50',
+      primary: '#3B82F6',
+      secondary: '#DBEAFE',
+      accent: '#1E40AF',
+      background: 'from-blue-50 via-sky-50 to-indigo-50',
       text: 'text-blue-800',
-      gradient: 'bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100'
+      gradient: 'bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100',
+      imageUrl: 'https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1920'
     };
   }
   
   if (name.includes('étude') || name.includes('etude') || name.includes('study')) {
     return {
-      name: 'Étude',
+      name: 'Études',
       emoji: '📚',
-      primary: '#8B5CF6', // violet-500
-      secondary: '#EDE9FE', // violet-100
-      accent: '#5B21B6', // violet-800
-      background: 'from-purple-50 to-violet-50',
+      primary: '#8B5CF6',
+      secondary: '#EDE9FE',
+      accent: '#5B21B6',
+      background: 'from-purple-50 via-violet-50 to-fuchsia-50',
       text: 'text-purple-800',
-      gradient: 'bg-gradient-to-br from-purple-50 via-violet-50 to-purple-100'
+      gradient: 'bg-gradient-to-br from-purple-50 via-violet-50 to-purple-100',
+      imageUrl: 'https://images.pexels.com/photos/1370295/pexels-photo-1370295.jpeg?auto=compress&cs=tinysrgb&w=1920'
     };
   }
   
-  if (name.includes('maison') || name.includes('home')) {
+  if (name.includes('maison') || name.includes('home') || name.includes('personnel')) {
     return {
-      name: 'Maison',
+      name: 'Personnel',
       emoji: '🏠',
-      primary: '#10B981', // emerald-500
-      secondary: '#D1FAE5', // emerald-100
-      accent: '#065F46', // emerald-800
-      background: 'from-emerald-50 to-green-50',
+      primary: '#10B981',
+      secondary: '#D1FAE5',
+      accent: '#065F46',
+      background: 'from-emerald-50 via-green-50 to-teal-50',
       text: 'text-emerald-800',
-      gradient: 'bg-gradient-to-br from-emerald-50 via-green-50 to-emerald-100'
+      gradient: 'bg-gradient-to-br from-emerald-50 via-green-50 to-emerald-100',
+      imageUrl: 'https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1920'
     };
   }
   
-  if (name.includes('sport')) {
+  if (name.includes('sport') || name.includes('santé') || name.includes('sante')) {
     return {
-      name: 'Sport',
+      name: 'Sport & Santé',
       emoji: '🏃‍♀️',
-      primary: '#F59E0B', // amber-500
-      secondary: '#FEF3C7', // amber-100
-      accent: '#92400E', // amber-800
-      background: 'from-amber-50 to-orange-50',
-      text: 'text-amber-800',
-      gradient: 'bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100'
+      primary: '#EF4444',
+      secondary: '#FEE2E2',
+      accent: '#991B1B',
+      background: 'from-red-50 via-orange-50 to-amber-50',
+      text: 'text-red-800',
+      gradient: 'bg-gradient-to-br from-red-50 via-orange-50 to-amber-100',
+      imageUrl: 'https://images.pexels.com/photos/3757376/pexels-photo-3757376.jpeg?auto=compress&cs=tinysrgb&w=1920'
     };
   }
   
-  if (name.includes('vie') || name.includes('personnelle') || name.includes('perso')) {
+  if (name.includes('courses') || name.includes('shopping')) {
     return {
-      name: 'Vie personnelle',
-      emoji: '🌟',
-      primary: '#EC4899', // pink-500
-      secondary: '#FCE7F3', // pink-100
-      accent: '#BE185D', // pink-800
-      background: 'from-pink-50 to-rose-50',
-      text: 'text-pink-800',
-      gradient: 'bg-gradient-to-br from-pink-50 via-rose-50 to-pink-100'
+      name: 'Courses',
+      emoji: '🛒',
+      primary: '#F59E0B',
+      secondary: '#FEF3C7',
+      accent: '#92400E',
+      background: 'from-amber-50 via-yellow-50 to-orange-50',
+      text: 'text-amber-800',
+      gradient: 'bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-100',
+      imageUrl: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=1920'
     };
   }
   
-  // Default theme
   return {
     name: 'Général',
     emoji: '✨',
-    primary: '#6B7280', // gray-500
-    secondary: '#F3F4F6', // gray-100
-    accent: '#374151', // gray-700
-    background: 'from-gray-50 to-slate-50',
-    text: 'text-gray-800',
-    gradient: 'bg-gradient-to-br from-gray-50 via-slate-50 to-gray-100'
+    primary: '#6366F1',
+    secondary: '#E0E7FF',
+    accent: '#4338CA',
+    background: 'from-slate-50 via-gray-50 to-zinc-50',
+    text: 'text-slate-800',
+    gradient: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-100',
+    imageUrl: 'https://images.pexels.com/photos/1629236/pexels-photo-1629236.jpeg?auto=compress&cs=tinysrgb&w=1920'
   };
 }
 

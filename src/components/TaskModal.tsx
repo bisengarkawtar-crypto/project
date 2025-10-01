@@ -19,6 +19,13 @@ export function TaskModal({ task, categories, onClose, onSave }: TaskModalProps)
   const [reminder, setReminder] = useState(
     task?.reminder ? new Date(task.reminder).toISOString().slice(0, 16) : ''
   );
+  const [sticker, setSticker] = useState(task?.sticker || '📝');
+
+  const stickerOptions = [
+    '📝', '✅', '⭐', '🎯', '💡', '🔥', '❤️', '🎉',
+    '💼', '📚', '🏋️', '🍔', '🌿', '💊', '🎨', '🎵',
+    '☕', '🌟', '🚀', '🌈', '🦋', '🌸', '🌻', '🍎'
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,6 +39,7 @@ export function TaskModal({ task, categories, onClose, onSave }: TaskModalProps)
       category_id: categoryId || null,
       reminder: reminder ? new Date(reminder).toISOString() : null,
       is_completed: task?.is_completed || false,
+      sticker,
     });
   };
 
@@ -126,6 +134,28 @@ export function TaskModal({ task, categories, onClose, onSave }: TaskModalProps)
               onChange={(e) => setReminder(e.target.value)}
               className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
             />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">
+              Sticker
+            </label>
+            <div className="grid grid-cols-8 gap-2">
+              {stickerOptions.map((emoji) => (
+                <button
+                  key={emoji}
+                  type="button"
+                  onClick={() => setSticker(emoji)}
+                  className={`text-2xl p-2 rounded-lg transition-all hover:scale-110 ${
+                    sticker === emoji
+                      ? 'bg-gradient-to-br from-pink-100 to-amber-100 ring-2 ring-pink-400'
+                      : 'bg-slate-50 hover:bg-slate-100'
+                  }`}
+                >
+                  {emoji}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="flex gap-3 pt-4">
